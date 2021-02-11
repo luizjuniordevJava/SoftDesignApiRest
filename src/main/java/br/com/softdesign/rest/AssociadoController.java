@@ -46,4 +46,18 @@ public class AssociadoController {
                 .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
                 /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
     }
+
+    /*Anotação para pegar o parâmeto passado na url*/
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar( @PathVariable Integer id){
+        repository
+                .findById(id) /*primeiro busca o associado antes de deletar*/
+                .map( associado -> {
+                    repository.delete(associado);
+                    return Void.TYPE;
+                })
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
+    }
 }
