@@ -68,7 +68,7 @@ public class AssociadoController {
     @PutMapping("{id}")
     /*Anotação para ter o retorno 204 sucesso no NO_CONTENT*/
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizar( @PathVariable Integer id, @RequestBody Associado associadoAtualizado){
+    public void atualizar( @PathVariable Integer id, @RequestBody @Valid Associado associadoAtualizado){
         repository
                 .findById(id) /*primeiro busca o associado antes de deletar*/
                 .map( associado -> {
