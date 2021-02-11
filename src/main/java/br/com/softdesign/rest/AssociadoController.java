@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
+
 /**
  * @author Junior
  * @since 10/02/2021
@@ -33,7 +35,7 @@ public class AssociadoController {
     @PostMapping
     /*Anotação para ter o retorno da requisição para o client*/
     @ResponseStatus(HttpStatus.CREATED)
-    public Associado salvar( @RequestBody Associado associado ){
+    public Associado salvar( @RequestBody @Valid Associado associado ){
         /*Anotação RequestBody indica que o objeto JSON será passado no corpo da requisição*/
         return repository.save(associado);
     }
