@@ -45,7 +45,7 @@ public class AssociadoController {
     public Associado acharPorId( @PathVariable Integer id){
         return repository
                 .findById(id)
-                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"cliente não encontrado!"));
                 /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
     }
 
@@ -60,7 +60,7 @@ public class AssociadoController {
                     repository.delete(associado);
                     return Void.TYPE;
                 })
-                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"cliente não encontrado!"));
         /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
     }
 
@@ -75,7 +75,8 @@ public class AssociadoController {
                     associadoAtualizado.setId(associado.getId());
                     return repository.save(associadoAtualizado);
                 })
-                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"cliente não encontrado!"));
         /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
     }
+
 }
