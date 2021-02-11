@@ -26,8 +26,13 @@ public class Voto {
     @Column
     private Boolean voto;
 
-    /*Anotação para relacionar o Voto ao Associado */
+    /*Anotação para relacionar o Voto a um único Associado */
     @OneToOne
     @JoinColumn(name="id_associado")
     private Associado associado;
+
+    /*Anotação para relacionar o voto a Pauta*/
+    @ManyToOne
+    @JoinColumn(name = "id_pauta")
+    private Pauta pauta;
 }
