@@ -14,12 +14,12 @@ import javax.persistence.*;
  * Classe criada para implementar um objeto Pauta
  */
 
-/*Anotação para relacionar a classe Pauta a entidade do banco de dados*/
-@Entity
 /*Anotações Lombok para gerar os construtores, getter e setter em tempo de execução*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/*Anotação para relacionar a classe Pauta a entidade do banco de dados*/
+@Entity
 public class Pauta {
 
     @Id
