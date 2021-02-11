@@ -23,7 +23,7 @@ public class InternacionalizacaoConfig {
     @Bean
     public MessageSource messageSource(){
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("messages");/*arquivo messages.properties*/
+        messageSource.setBasename("classpath:messages");/*arquivo messages.properties*/
         messageSource.setDefaultEncoding("ISO-8859-1");/*para detectar caracteres especiais*/
         messageSource.setDefaultLocale( Locale.getDefault());/* pegar localização automaticamente*/
         return messageSource;
