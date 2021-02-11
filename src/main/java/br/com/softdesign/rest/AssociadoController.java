@@ -38,7 +38,7 @@ public class AssociadoController {
         return repository.save(associado);
     }
 
-    /*Anotação para pegar o parâmeto passado na url*/
+    /*Anotação para pegar o parâmeto passado na url, informar que metodo é um GET*/
     @GetMapping("{id}")
     public Associado acharPorId( @PathVariable Integer id){
         return repository
@@ -47,8 +47,9 @@ public class AssociadoController {
                 /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
     }
 
-    /*Anotação para pegar o parâmeto passado na url*/
+    /*Anotação para pegar o parâmeto passado na url, informar que metodo é um Delete*/
     @DeleteMapping("{id}")
+    /*Anotação para ter o retorno 204 sucesso no NO_CONTENT*/
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar( @PathVariable Integer id){
         repository
@@ -56,6 +57,21 @@ public class AssociadoController {
                 .map( associado -> {
                     repository.delete(associado);
                     return Void.TYPE;
+                })
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
+    }
+
+    /*Anotação para pegar o parâmeto passado na url, informar que metodo é um Put(update)*/
+    @PutMapping("{id}")
+    /*Anotação para ter o retorno 204 sucesso no NO_CONTENT*/
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void atualizar( @PathVariable Integer id, @RequestBody Associado associadoAtualizado){
+        repository
+                .findById(id) /*primeiro busca o associado antes de deletar*/
+                .map( associado -> {
+                    associadoAtualizado.setId(associado.getId());
+                    return repository.save(associadoAtualizado);
                 })
                 .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
         /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
