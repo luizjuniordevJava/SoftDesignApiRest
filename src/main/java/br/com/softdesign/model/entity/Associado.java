@@ -15,9 +15,9 @@ import java.time.LocalDate;
  * Classe criada para implementar um objeto Associado
  */
 
-/*Anotação para realcionar a classe Associado a entidade do banco de dados*/
+/*Anotação para relacionar a classe Associado a entidade do banco de dados*/
 @Entity
-/*Anotações Lombok para gerar os construtores em tempo de execução*/
+/*Anotações Lombok para gerar os construtores, getter e setter em tempo de execução*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
