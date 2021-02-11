@@ -38,12 +38,12 @@ public class AssociadoController {
         return repository.save(associado);
     }
 
-    /*Anotação para pegar o parâmeto id passado na url*/
+    /*Anotação para pegar o parâmeto passado na url*/
     @GetMapping("{id}")
     public Associado acharPorId( @PathVariable Integer id){
         return repository
                 .findById(id)
-                .orElseThrow(()-> new ResponseStatusException((HttpStatus.NOT_FOUND)));
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
                 /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
     }
 }
