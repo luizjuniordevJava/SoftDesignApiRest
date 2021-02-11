@@ -1,6 +1,7 @@
 package br.com.softdesign.model.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -20,6 +21,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 /*Anotação para relacionar a classe Associado a entidade do banco de dados*/
 @Entity
+@Builder
 public class Associado {
 
     @Id
@@ -32,6 +34,5 @@ public class Associado {
     @Column(nullable = false, length = 11)
     private String cpf;
 
-    @Column
-    private LocalDate dataCadstro;
+
 }

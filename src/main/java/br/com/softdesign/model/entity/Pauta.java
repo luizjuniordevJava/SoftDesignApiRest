@@ -1,6 +1,7 @@
 package br.com.softdesign.model.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -19,6 +20,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 /*Anotação para relacionar a classe Pauta a entidade do banco de dados*/
 @Entity
+@Builder
 public class Pauta {
 
     @Id

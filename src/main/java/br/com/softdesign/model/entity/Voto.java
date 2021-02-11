@@ -1,6 +1,7 @@
 package br.com.softdesign.model.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 /*Anotação para relacionar a classe Voto a entidade do banco de dados*/
+@Builder
 @Entity
 public class Voto {
     @Id
