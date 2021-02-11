@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.persistence.*;
-import java.time.LocalDate;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 
 /**
  * @author Junior
@@ -29,9 +33,14 @@ public class Associado {
     private Integer id;
 
     @Column(nullable = false, length = 150)
+    /*Anotação validar o campo nome*/
+    @NotEmpty
     private String nome;
 
     @Column(nullable = false, length = 11)
+    /*Anotação validar o campo cpf*/
+    @NotNull
+    @CPF
     private String cpf;
 
 
