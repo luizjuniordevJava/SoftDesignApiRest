@@ -33,14 +33,14 @@ public class Associado {
     private Integer id;
 
     @Column(nullable = false, length = 150)
-    /*Anotação validar o campo nome*/
-    @NotEmpty
+    /*Anotação para validar o campo nome*/
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
     private String nome;
 
     @Column(nullable = false, length = 11)
     /*Anotação validar o campo cpf*/
-    @NotNull
-    @CPF
+    @NotNull(message = "{campo.cpf.obrigatorio}")
+    @CPF(message = "{campo.cpf.invalido}")
     private String cpf;
 
 
