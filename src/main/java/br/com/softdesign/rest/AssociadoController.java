@@ -20,6 +20,7 @@ import javax.validation.Valid;
 @RestController
 /*Anotação para indicar a rota*/
 @RequestMapping("/api/associados")
+@CrossOrigin("http://localhost:4200")
 public class AssociadoController {
 
     private final AssociadoRepository repository;
