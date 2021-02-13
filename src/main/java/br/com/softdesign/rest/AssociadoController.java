@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author Junior
@@ -30,6 +31,11 @@ public class AssociadoController {
     public AssociadoController(AssociadoRepository repository){
 
         this.repository = repository;
+    }
+
+    @GetMapping
+    public List<Associado> obterTodos(){
+        return repository.findAll();
     }
 
     /*Anotação para informar que metodo é um post*/
