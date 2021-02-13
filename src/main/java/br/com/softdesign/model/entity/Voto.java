@@ -1,10 +1,13 @@
 package br.com.softdesign.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * @author Junior
@@ -37,4 +40,8 @@ public class Voto {
     @ManyToOne
     @JoinColumn(name = "id_pauta")
     private Pauta pauta;
+
+    @Column(name = "data_cadastro", updatable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataCadastro;
 }
