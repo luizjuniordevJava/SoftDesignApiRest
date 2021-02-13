@@ -44,4 +44,9 @@ public class Voto {
     @Column(name = "data_cadastro", updatable = false)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
+
+    @PrePersist //Anotação para executar metodo antes de persistir a informação no BD
+    public  void prePersist(){
+        setDataCadastro(LocalDate.now());
+    }
 }
