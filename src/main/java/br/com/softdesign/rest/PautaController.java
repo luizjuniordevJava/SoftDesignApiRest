@@ -22,7 +22,6 @@ import java.util.List;
 @RestController
 /*Anotação para indicar a rota*/
 @RequestMapping("/api/pautas")
-@CrossOrigin("http://localhost:4200")
 public class PautaController {
 
     private final PautaRepository repository;
