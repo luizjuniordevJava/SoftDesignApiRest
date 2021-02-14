@@ -41,7 +41,7 @@ public class Pauta {
     @NotEmpty(message = "{campo.descricao.obrigatorio}")
     private String descricao;
 
-    @Column
+    @Column(name = "total_votos")
     private int totalVotos;
 
     @Column
