@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 /**
@@ -30,8 +31,21 @@ public class Pauta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false, length = 150)
+    /*Anotação para validar o campo nome*/
+    @NotEmpty(message = "{campo.nome.obrigatorio}")
+    private String nome;
+
     @Column(nullable = false, length = 250)
+    /*Anotação para validar o campo descricao*/
+    @NotEmpty(message = "{campo.descricao.obrigatorio}")
     private String descricao;
+
+    @Column
+    private int totalVotos;
+
+    @Column
+    private Boolean resultado;
 
     @Column(name = "data_cadastro", updatable = false)
     @JsonFormat(pattern = "dd/MM/yyyy")
