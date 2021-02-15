@@ -15,36 +15,60 @@ import java.time.LocalDate;
  * @version 1.0
  *
  * Classe criada para implementar os Votos da Pauta
+ *
+ * Anotações Data Lombok para gerar os construtores, getter e setter em tempo de execução
+ * Anotações NoArgsConstructor Lombok para gerar um construtor vazio em tempo de execução
+ * Anotações AllArgsConstructor Lombok para gerar um construtor completo em tempo de execução
+ * Anotação Entity para relacionar a classe Associado a entidade do banco de dados
  */
-/*Anotações Lombok para gerar os construtores, getter e setter em tempo de execução*/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-/*Anotação para relacionar a classe Voto a entidade do banco de dados*/
 @Builder
 @Entity
 public class Voto {
+
+    /**
+     * Anotação Id e GeneratedValue(strategy = GenerationType.IDENTITY)
+     * para indicar que o atributo será id único e autoincrmento
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * Anotação Column para configurar coluna
+     */
     @Column
     private Boolean voto;
 
-    /*Anotação para relacionar o Voto a um único Associado */
+    /**
+     * Anotação OneToOne para relacionar um Voto a um único Associado
+     * Anotação JoinColumn para que seja feito a query pelo hinermate
+     */
     @OneToOne
     @JoinColumn(name="id_associado")
     private Associado associado;
 
-    /*Anotação para relacionar o voto a Pauta*/
+    /**
+     * Anotação ManyToOne para relacionar a lista de votos da pauta
+     * Anotação JoinColumn para que seja feito a query pelo hinermate
+     */
     @ManyToOne
     @JoinColumn(name = "id_pauta")
     private Pauta pauta;
 
+    /**
+     * Anotação Column para configurar coluna
+     * Anotação JsonFormat para salvar a data com o padrão dia/Mês/ano
+     */
     @Column(name = "data_cadastro", updatable = false)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
 
+    /**
+     * Anotação PrePersist para executar metodo antes de persistir a informação no BD
+     */
     @PrePersist //Anotação para executar metodo antes de persistir a informação no BD
     public  void prePersist(){
         setDataCadastro(LocalDate.now());

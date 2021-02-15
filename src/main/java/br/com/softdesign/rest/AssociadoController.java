@@ -2,6 +2,7 @@ package br.com.softdesign.rest;
 
 import br.com.softdesign.model.entity.Associado;
 import br.com.softdesign.model.repository.AssociadoRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,73 +17,89 @@ import java.util.List;
  * @version 1.0
  *
  * Classe criada para implementar a controller do Associado
+ *
+ * Anotação RestController para implementar RestController
+ * Anotação RequiredArgsConstructor lombok para gerar o construtor como final em tempo de execução
+ * Anotação RequestMapping para indicar a rota
+ *
  */
-/*Anotação para implementar RestController*/
 @RestController
-/*Anotação para indicar a rota*/
+@RequiredArgsConstructor
 @RequestMapping("/api/associados")
 public class AssociadoController {
 
-    private final AssociadoRepository repository;
-
-    /*Anotação para permitir a injeção do repository*/
+    /**
+     * Anotação Autowired para permitir a injeção do repository
+     */
     @Autowired
-    public AssociadoController(AssociadoRepository repository){
-
-        this.repository = repository;
-    }
+    private final AssociadoRepository repository;
 
     @GetMapping
     public List<Associado> obterTodos(){
         return repository.findAll();
     }
 
-    /*Anotação para informar que metodo é um post*/
+    /**
+     *  Anotação para informar que metodo é um post
+     *  Anotação para ter o retorno da requisição para o client
+     *  Anotação RequestBody indica que o objeto JSON será passado no corpo da requisição
+     *  Anotação Valid para validar o objeto associado
+     *  Anotação ResponseStatus(HttpStatus.CREATED) retorno de msg pro client
+     *
+     */
     @PostMapping
-    /*Anotação para ter o retorno da requisição para o client*/
     @ResponseStatus(HttpStatus.CREATED)
     public Associado salvar( @RequestBody @Valid Associado associado ){
-        /*Anotação RequestBody indica que o objeto JSON será passado no corpo da requisição*/
         return repository.save(associado);
     }
 
-    /*Anotação para pegar o parâmeto passado na url, informar que metodo é um GET*/
+    /**
+     *  Anotação GetMapping para pegar o parâmeto passado na url
+     *  findById primeiro busca o associado
+     *  orElseThrow se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado
+     */
     @GetMapping("{id}")
     public Associado acharPorId( @PathVariable Integer id){
         return repository
                 .findById(id)
-                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"cliente não encontrado!"));
-                /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"associado não encontrado!"));
+
     }
 
-    /*Anotação para pegar o parâmeto passado na url, informar que metodo é um Delete*/
+    /**
+     *  Anotação DeleteMapping para pegar o parâmeto passado na url, informar que metodo é um Delete
+     *  Anotação ResponseStatus(HttpStatus.NO_CONTENT) para ter o retorno 204 sucesso no NO_CONTENT
+     *  findById primeiro busca o associado
+     *  orElseThrow se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado
+     */
     @DeleteMapping("{id}")
-    /*Anotação para ter o retorno 204 sucesso no NO_CONTENT*/
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar( @PathVariable Integer id){
         repository
-                .findById(id) /*primeiro busca o associado antes de deletar*/
+                .findById(id)
                 .map( associado -> {
                     repository.delete(associado);
                     return Void.TYPE;
                 })
-                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"cliente não encontrado!"));
-        /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"associado não encontrado!"));
     }
 
-    /*Anotação para pegar o parâmeto passado na url, informar que metodo é um Put(update)*/
+    /**
+     *  Anotação PutMapping para pegar o parâmeto passado na url, informar que metodo é um Put(update)
+     *  Anotação ResponseStatus(HttpStatus.NO_CONTENT) para ter o retorno 204 sucesso no NO_CONTENT
+     *  findById primeiro busca o associado
+     *  orElseThrow se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado
+     */
     @PutMapping("{id}")
-    /*Anotação para ter o retorno 204 sucesso no NO_CONTENT*/
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizar( @PathVariable Integer id, @RequestBody @Valid Associado associadoAtualizado){
         repository
-                .findById(id) /*primeiro busca o associado antes de deletar*/
+                .findById(id)
                 .map( associado -> {
                     associadoAtualizado.setId(associado.getId());
                     return repository.save(associadoAtualizado);
                 })
-                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"cliente não encontrado!"));
-        /*Se não encontrar o cliente por id será lançado o erro que objeto não foi encontrado*/
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"associado não encontrado!"));
     }
 
 }

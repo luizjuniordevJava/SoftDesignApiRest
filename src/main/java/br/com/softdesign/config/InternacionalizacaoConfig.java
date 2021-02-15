@@ -14,12 +14,19 @@ import java.util.Locale;
  * @version 1.0
  *
  * Classe criada para configurar a internacionalização de mensagens
+ *
+ * Anotação Configuration para informar que a classe faz parte da configuração do spring
+ *
  */
-/*Anotação para indicar que a classe é do tipo configuração*/
 @Configuration
 public class InternacionalizacaoConfig {
 
-    /*Metodo para configurar as mensagens*/
+    /**
+     *  Metodo para configurar as mensagens
+     *  messageSource.setBasename("classpath:messages") arquivo messages.properties
+     *  messageSource.setDefaultEncoding("ISO-8859-1"); para detectar caracteres especiais
+     *  messageSource.setDefaultLocale(Locale.getDefault()); pegar localização automaticamente
+     */
     @Bean
     public MessageSource messageSource(){
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -29,7 +36,9 @@ public class InternacionalizacaoConfig {
         return messageSource;
     }
 
-    /*Integração de mensagens através de interpolação */
+    /**
+     *  Integração de mensagens através de interpolação
+     */
     @Bean
     public LocalValidatorFactoryBean validatorFactoryBean(){
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();

@@ -11,6 +11,16 @@ import org.springframework.web.filter.CorsFilter;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Junior
+ * @since 15/02/2021
+ * @version 1.0
+ *
+ * Classe criada para implementar a configuração de políticas do CORS
+ *
+ * Anotação Configuration para informar que a classe faz parte da configuração do spring
+ *
+ */
 @Configuration
 public class WebConfig {
 
