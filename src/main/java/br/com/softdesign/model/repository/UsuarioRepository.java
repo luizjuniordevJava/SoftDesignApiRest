@@ -3,6 +3,8 @@ package br.com.softdesign.model.repository;
 import br.com.softdesign.model.entity.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 /**
  * @author Junior
  * @since 15/02/2021
@@ -14,4 +16,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+
+    Optional<Usuario> findbyUsername(String username);
 }
