@@ -1,10 +1,12 @@
 package br.com.softdesign.rest;
 
+import br.com.softdesign.exception.UsuarioCadastradoException;
 import br.com.softdesign.model.entity.Usuario;
-import br.com.softdesign.model.repository.UsuarioRepository;
+import br.com.softdesign.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -26,11 +28,16 @@ import javax.validation.Valid;
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 
-    private final UsuarioRepository repository;
+    private final UsuarioService service;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void salvar(@RequestBody @Valid Usuario usuario){
-        repository.save(usuario);
+        try {
+            service.salvar(usuario);
+        }catch (UsuarioCadastradoException e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+        }
+
     }
 }
