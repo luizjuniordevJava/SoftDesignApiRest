@@ -1,5 +1,6 @@
 package br.com.softdesign.service;
 
+import br.com.softdesign.exception.UsuarioCadastradoException;
 import br.com.softdesign.model.entity.Usuario;
 import br.com.softdesign.model.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,14 @@ public class UsuarioService implements UserDetailsService {
 
     @Autowired
     private UsuarioRepository repository;
+
+    public Usuario salvar(Usuario usuario){
+        boolean exists = repository.existsByUsername(usuario.getUsername());
+        if (exists){
+            throw new UsuarioCadastradoException(usuario.getUsername());
+        }
+       return repository.save(usuario);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
