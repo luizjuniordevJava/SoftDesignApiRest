@@ -33,9 +33,9 @@ public class Usuario {
     private Integer id;
 
     @Column(unique = true)
-    @NotEmpty(message = "${campo.login.obrigatorio}")
+    @NotEmpty(message = "{campo.login.obrigatorio}")
     private String username;
 
-    @NotEmpty(message = "${campo.senha.obrigatorio}")
+    @NotEmpty(message = "{campo.senha.obrigatorio}")
     private String password;
 }
