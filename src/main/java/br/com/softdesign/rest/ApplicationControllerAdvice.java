@@ -1,6 +1,6 @@
 package br.com.softdesign.rest;
 
-import br.com.softdesign.rest.exception.ApiErrors;
+import br.com.softdesign.exception.ApiErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
