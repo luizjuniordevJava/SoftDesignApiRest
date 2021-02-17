@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author Junior
@@ -32,7 +33,9 @@ public class Usuario {
     private Integer id;
 
     @Column(unique = true)
+    @NotEmpty(message = "${campo.login.obrigatorio}")
     private String username;
 
+    @NotEmpty(message = "${campo.senha.obrigatorio}")
     private String password;
 }
