@@ -1,4 +1,4 @@
-package br.com.softdesign.rest.exception;
+package br.com.softdesign.exception;
 
 import lombok.Getter;
 
