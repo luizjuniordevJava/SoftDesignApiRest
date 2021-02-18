@@ -2,6 +2,8 @@ package br.com.softdesign.model.repository;
 
 import br.com.softdesign.model.entity.Associado;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  * @author Junior
@@ -13,4 +15,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  */
 public interface AssociadoRepository extends JpaRepository<Associado,Integer> {
+
+    @Query("select case when count(c)> 0 then true else false end from Associado c where lower(c.cpf) like lower(:cpf)")
+    boolean existsByCPF(@Param("cpf") String cpf);
 }
