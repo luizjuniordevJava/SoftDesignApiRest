@@ -35,7 +35,9 @@ public class AssociadoController {
      */
     @Autowired
     private final AssociadoRepository repository;
-
+    /**
+     * Anotação Autowired para permitir a injeção do AssociadoService
+     */
     @Autowired
     private final AssociadoService service;
 
