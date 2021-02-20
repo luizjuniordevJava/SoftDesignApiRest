@@ -66,6 +66,14 @@ public class Associado {
     private LocalDate dataCadastro;
 
     /**
+     * Anotação OneToOne para relacionar um usuario a um único Associado
+     * Anotação JoinColumn para que seja feito a query pelo hibernate
+     */
+    @OneToOne
+    @JoinColumn(name="id_usuario")
+    private Usuario usuario;
+
+    /**
      * Anotação PrePersist para executar metodo antes de persistir a informação no BD
      */
     @PrePersist
