@@ -34,7 +34,12 @@ public class UsuarioService implements UserDetailsService {
         }
        return repository.save(usuario);
     }
-
+    public Usuario loadByUsername(String username){
+       Usuario usuario = repository
+                            .findByUsername(username)
+                            .orElseThrow(()-> new UsernameNotFoundException("Login não encontrado!"));
+       return usuario;
+    }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = repository
