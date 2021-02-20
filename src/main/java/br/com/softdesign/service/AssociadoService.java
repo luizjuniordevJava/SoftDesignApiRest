@@ -3,7 +3,9 @@ package br.com.softdesign.service;
 import br.com.softdesign.exception.AssociadoNaoEncontadoException;
 import br.com.softdesign.exception.CPFCadastradoException;
 import br.com.softdesign.model.entity.Associado;
+import br.com.softdesign.model.entity.Usuario;
 import br.com.softdesign.model.repository.AssociadoRepository;
+import br.com.softdesign.service.dto.AssociadoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,21 +25,32 @@ import java.util.List;
 public class AssociadoService {
 
     /**
-     * Anotação Autowired para permitir a injeção do repository
+     * Anotação Autowired para permitir a injeção do repository e service
      */
     @Autowired
     private final AssociadoRepository repository;
+
+    @Autowired
+    private final UsuarioService usuarioService;
 
     public List<Associado> listarTodos(){
         return repository.findAll();
     }
 
-    public Associado salvar(Associado associado ){
-        boolean exists = repository.existsByCPF(associado.getCpf());
+    public Associado salvar( AssociadoDTO associadoDTO ){
+        boolean exists = repository.existsByCPF(associadoDTO.getCpf());
         if ( exists ){
             throw new CPFCadastradoException();
+        }else {
+            Usuario usuario = usuarioService.loadByUsername(associadoDTO.getUsuario());
+            Associado associado = new Associado();
+            associado.setNome( associadoDTO.getNome() );
+            associado.setCpf( associadoDTO.getCpf() );
+            associado.setUsuario( usuario );
+
+            return repository.save( associado );
         }
-        return repository.save( associado );
+
     }
 
     /**
