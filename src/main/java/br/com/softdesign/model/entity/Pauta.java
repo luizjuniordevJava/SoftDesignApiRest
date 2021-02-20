@@ -64,7 +64,7 @@ public class Pauta {
      * Anotação Column para configurar coluna
      */
     @Column
-    private Boolean resultado;
+    private String resultado;
 
     /**
      * Anotação Column para configurar coluna
