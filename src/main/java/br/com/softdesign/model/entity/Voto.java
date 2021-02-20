@@ -39,14 +39,14 @@ public class Voto {
     /**
      * Anotação Column para configurar coluna
      */
-    @Column
-    private Boolean voto;
+    @Column(length = 3)
+    private String voto;
 
     /**
      * Anotação OneToOne para relacionar um Voto a um único Associado
      * Anotação JoinColumn para que seja feito a query pelo hinermate
      */
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_associado")
     private Associado associado;
 
@@ -54,7 +54,7 @@ public class Voto {
      * Anotação ManyToOne para relacionar a lista de votos da pauta
      * Anotação JoinColumn para que seja feito a query pelo hinermate
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_pauta")
     private Pauta pauta;
 
