@@ -4,6 +4,7 @@ import br.com.softdesign.exception.AssociadoNaoEncontadoException;
 import br.com.softdesign.model.entity.Associado;
 import br.com.softdesign.model.repository.AssociadoRepository;
 import br.com.softdesign.service.AssociadoService;
+import br.com.softdesign.service.dto.AssociadoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,7 +56,7 @@ public class AssociadoController {
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Associado salvar( @RequestBody @Valid Associado associado ){
+    public Associado salvar( @RequestBody @Valid AssociadoDTO associado ){
         try {
           return  service.salvar( associado );
 
