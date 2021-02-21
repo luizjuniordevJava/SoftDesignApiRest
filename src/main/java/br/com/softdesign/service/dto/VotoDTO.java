@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VotoDTO {
     private String voto;
-    private Integer idAssociado;
+    private String usuario;
     private Integer idPauta;
 }

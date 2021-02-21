@@ -37,6 +37,10 @@ public class AssociadoService {
         return repository.findAll();
     }
 
+    public Integer getIdAssociado(String username){
+        return repository.associadoPorUsername(username);
+    }
+
     public Associado salvar( AssociadoDTO associadoDTO ){
         boolean exists = repository.existsByCPF(associadoDTO.getCpf());
         if ( exists ){

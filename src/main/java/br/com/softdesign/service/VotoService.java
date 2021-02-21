@@ -34,7 +34,8 @@ public class VotoService {
 
     public Voto salvar( VotoDTO votoDTO ){
         Integer idPauta = votoDTO.getIdPauta();
-        Integer idAssociado = votoDTO.getIdAssociado();
+        String usuario = votoDTO.getUsuario();
+        Integer idAssociado = associadoService.getIdAssociado(usuario);
 
         Associado associado = associadoService.acharPorId(idAssociado);
         Pauta pauta = pautaService.acharPorId(idPauta);

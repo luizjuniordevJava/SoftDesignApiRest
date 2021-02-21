@@ -18,4 +18,7 @@ public interface AssociadoRepository extends JpaRepository<Associado,Integer> {
 
     @Query("select case when count(c)> 0 then true else false end from Associado c where lower(c.cpf) like lower(:cpf)")
     boolean existsByCPF(@Param("cpf") String cpf);
+    @Query(value = "select a.id from Usuario u join Associado a on a.id_usuario = u.id " +
+            "where u.username = :username", nativeQuery = true)
+    Integer associadoPorUsername(@Param("username") String username);
 }
