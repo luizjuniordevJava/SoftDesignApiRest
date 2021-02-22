@@ -60,6 +60,12 @@ public class Pauta {
     @Column(name = "total_votos")
     private int totalVotos;
 
+    @Column(name = "voto_sim")
+    private int votoSim;
+
+    @Column(name = "voto_nao")
+    private int votoNao;
+
     /**
      * Anotação Column para configurar coluna
      */

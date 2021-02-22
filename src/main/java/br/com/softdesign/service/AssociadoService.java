@@ -37,7 +37,7 @@ public class AssociadoService {
         return repository.findAll();
     }
 
-    public Integer getIdAssociado(String username){
+    public Integer idAssociadoPorUsername(String username){
         return repository.associadoPorUsername(username);
     }
 

@@ -35,24 +35,16 @@ public class VotoService {
     public Voto salvar( VotoDTO votoDTO ){
         Integer idPauta = votoDTO.getIdPauta();
         String usuario = votoDTO.getUsuario();
-        Integer idAssociado = associadoService.getIdAssociado(usuario);
+        Integer idAssociado = associadoService.idAssociadoPorUsername(usuario);
 
         Associado associado = associadoService.acharPorId(idAssociado);
         Pauta pauta = pautaService.acharPorId(idPauta);
-       /* Associado associado = associadoRepository
-                                .findById(idAssociado)
-                                .orElseThrow(() -> new AssociadoNaoEncontadoException());
-
-
-        Pauta pauta = pautaRepository
-                        .findById(idPauta)
-                        .orElseThrow(() -> new AssociadoNaoEncontadoException());*/
 
         /**
          * Método que valida se o associado já possuí voto para a pauta
          */
-        boolean exists = repository.existsVoteByPautaUser(idPauta.toString(),idAssociado.toString());
-        System.out.println(exists);
+        boolean exists = repository.existsVoteByPautaUser( idPauta.toString(), idAssociado.toString() );
+
         if (exists){
             throw new VotoRegistradoException();
         }else {
@@ -66,7 +58,26 @@ public class VotoService {
              * Método que incrementa o total de voto da pauta
              */
             int nVoto = pauta.getTotalVotos()+1;
+            int nSim =  pauta.getVotoSim()+1;
+            int nN = pauta.getVotoNao()+1;
+
+            if (voto.getVoto().contains("sim")){
+                nSim = nSim+1;
+            }else{
+                nN = nN+1;
+            }
             pauta.setTotalVotos( nVoto );
+            pauta.setVotoSim(nSim);
+            pauta.setVotoNao(nN);
+
+            String resultado = "";
+
+            if (nSim>nN){
+                resultado = "Aprovado(a).";
+            }else {
+                resultado = "Reprovado(a).";
+            }
+            pauta.setResultado(resultado);
             pautaService.salvar( pauta );
 
             return repository.save(voto);

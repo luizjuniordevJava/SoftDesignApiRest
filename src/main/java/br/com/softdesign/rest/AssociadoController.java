@@ -1,6 +1,7 @@
 package br.com.softdesign.rest;
 
 import br.com.softdesign.exception.AssociadoNaoEncontadoException;
+import br.com.softdesign.exception.CPFCadastradoException;
 import br.com.softdesign.model.entity.Associado;
 import br.com.softdesign.model.repository.AssociadoRepository;
 import br.com.softdesign.service.AssociadoService;
@@ -62,6 +63,8 @@ public class AssociadoController {
 
         }catch ( AssociadoNaoEncontadoException e){
             throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
+        }catch ( CPFCadastradoException c){
+            throw new ResponseStatusException( HttpStatus.NOT_FOUND, c.getMessage() );
         }
 
     }
@@ -78,7 +81,7 @@ public class AssociadoController {
             throw new ResponseStatusException( HttpStatus.NOT_FOUND, e.getMessage() );
         }
     }
-
+    
     /**
      *  Anotação DeleteMapping para pegar o parâmeto passado na url, informar que metodo é um Delete
      *  Anotação ResponseStatus(HttpStatus.NO_CONTENT) para ter o retorno 204 sucesso no NO_CONTENT
